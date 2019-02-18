@@ -1,0 +1,10 @@
+version: '3'
+      
+services:
+  nginx-images:
+    image: nginx:latest
+    volumes:
+      - ./nginx-images/conf.d:/etc/nginx/conf.d
+      - ./nginx-images/images:/images
+    ports:
+      - "80:80"
