@@ -8,3 +8,18 @@ services:
       - ./nginx-images/images:/images
     ports:
       - "80:80"
+  gallery-app:
+    build: ./gallery-app
+    ports:
+      - "8080:8080"
+  db:
+    image: postgres:11.2-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: 'gallery-app'
+      POSTGRES_PASSWORD: 'gallery-app'
+      POSTGRES_DB: 'gallery-app'
+    volumes:
+      - ./db/init:/docker-entrypoint-initdb.d/
+    
