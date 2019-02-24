@@ -26,20 +26,19 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
+    <!--database-->
     <bean id="dataSourceGlobal" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">
         <property name="driverClass" value="org.postgresql.Driver" />
         <property name="jdbcUrl" value="jdbc:postgresql://192.168.99.100:5432/gallery-app?charSet=UTF-8" />
         <property name="user" value="gallery-app" />
         <property name="password" value="gallery-app" />
-
         <!-- these are C3P0 properties -->
         <property name="acquireIncrement" value="1" />
         <property name="minPoolSize" value="5" />
         <property name="maxPoolSize" value="20" />
         <property name="maxIdleTime" value="3000" />
     </bean>
-
     <bean id="hibernate5AnnotatedSessionFactory"
                 class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSourceGlobal" />
@@ -57,17 +56,17 @@
             </props>
         </property>
     </bean>
-
-
     <tx:annotation-driven transaction-manager="transactionManager"/>
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="hibernate5AnnotatedSessionFactory"/>
     </bean>
-
-
-
     <bean id="imageDAO" class="com.galleryapp.repository.ImageDAO">
         <property name="sessionFactory" ref="hibernate5AnnotatedSessionFactory" />
     </bean>
-
+    <!--files-->
+    <bean id="multipartResolver"
+                class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- setting maximum upload size -->
+        <property name="maxUploadSize" value="100000000" />
+    </bean>
 </beans>
