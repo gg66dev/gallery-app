@@ -18,6 +18,9 @@
             base-package="com.galleryapp.controller" />
     <mvc:default-servlet-handler />
 
+    <!--<mvc:resources mapping="/images/**" location="file:/c:/bin/apache-tomcat-9.0.16/tmpFiles/" />-->
+    <mvc:resources mapping="/images/**" location="file:/#{systemProperties['catalina.home']}/tmpFiles/" />
+
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <property name="viewClass"
