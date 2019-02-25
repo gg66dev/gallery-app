@@ -24,6 +24,13 @@
         <org.slf4j-version>1.7.5</org.slf4j-version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>webjars</id>
+            <url>http://webjars.github.com/m2</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <!--Spring MVC 5-->
         <dependency>
@@ -182,6 +189,17 @@
                 </exclusion>
             </exclusions>
             <scope>runtime</scope>
+        </dependency>
+        <!--webjars -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>4.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>angularjs</artifactId>
+            <version>1.7.7</version>
         </dependency>
     </dependencies>
 
