@@ -11,12 +11,15 @@
     <link rel="shortcut icon" href="">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"></link>
+    <link rel="stylesheet" href="/static/css/galleryapp.css"></link>
     <title>${title}</title>
 </head>
 <body ng-app="gallery-app">
-${content}
+
+<div class="container">
+    ${content}
+</div>
 
 
 <!-- Optional JavaScript -->
