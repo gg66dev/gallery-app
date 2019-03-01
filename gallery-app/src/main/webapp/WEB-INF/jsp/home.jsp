@@ -6,6 +6,7 @@
 
 <t:base title="Gallery App - List">
     <jsp:attribute name="content">
+        <div ng-controller="homeController" ng-init="init()" >
         <h1>This is the List of image in Gallery App</h1>
 
         <h3>
@@ -21,6 +22,6 @@
                    name="file"><br />
             <input type="submit" value="Upload"> Press here to upload the file!
         </form>
-
+        </div>
     </jsp:attribute>
 </t:base>

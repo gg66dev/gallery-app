@@ -1,1 +1,1 @@
-console.log("hello world");
+var app = angular.module("gallery-app", []);

@@ -6,6 +6,8 @@
 
 <t:base title="Gallery App - List">
     <jsp:attribute name="content">
-        <h1>This is the Detail of the Image in Gallery App</h1>
+        <div ng-controller="imageController" ng-init="init()" >
+            <h1>This is the Detail of the Image in Gallery App</h1>
+        </div>
     </jsp:attribute>
 </t:base>
