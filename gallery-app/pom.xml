@@ -15,7 +15,7 @@
         <spring.version>5.1.3.RELEASE</spring.version>
         <hibernate.version>5.2.11.Final</hibernate.version>
         <hibernate.validator>5.4.1.Final</hibernate.validator>
-        <c3p0.version>0.9.5.2</c3p0.version>
+        <c3p0.version>0.9.5.3</c3p0.version>
         <jstl.version>1.2</jstl.version>
         <tld.version>1.1.2</tld.version>
         <servlets.version>3.1.0</servlets.version>
@@ -140,7 +140,7 @@
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-            <version>1.3.1</version>
+            <version>1.3.3</version>
         </dependency>
         <!-- Apache Commons IO -->
         <dependency>
