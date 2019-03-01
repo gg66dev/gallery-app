@@ -2,26 +2,22 @@
 Description
 ================
 
-* TODO
+* simple example project:  user can upload image and write comments.
+* NOT COMPLETE
 
 
 Stack
 ==========
 
 * Spring-mvc 5 (Java 11) / tomcat 9
-* AngularJS 1.6
+* AngularJS 1.7
 * PostgreSQL 10
+
 
 Observation
 ===================
 
-* about problem when up postgres
-
-```
-FATAL:  data directory "/var/lib/postgresql/data" has wrong ownership
-```
-
-* just run the next command
+* to create volumen for postgres
 
 ```
 docker volume create postgres_database
