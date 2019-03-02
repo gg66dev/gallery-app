@@ -3,36 +3,41 @@ package com.galleryapp.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import com.galleryapp.model.Image;
+import com.galleryapp.repository.ImageDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Handles requests for the application file upload requests
  */
-@Controller
-public class FileUploadController {
+@RestController
+public class MainRestController {
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(FileUploadController.class);
+    private ImageDAO imageDAO;
+
+    @Autowired
+    public void setImageDAO(ImageDAO imageDAO) {
+        this.imageDAO = imageDAO;
+    }
 
     /**
      * Upload single file using Spring Controller
      */
-    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-    public @ResponseBody
-    String uploadFileHandler(@RequestParam("file") MultipartFile file) {
-
+    @PostMapping(value = "/uploadFile")
+    public ResponseEntity<String> uploadFileHandler(@RequestParam("file") MultipartFile file) throws IOException {
+        String name = "";
         if (!file.isEmpty()) {
-            try {
                 byte[] bytes = file.getBytes();
-                String name = file.getOriginalFilename();
+                name = file.getOriginalFilename();
 
                 // Creating the directory to store file
                 String rootPath = System.getProperty("catalina.home");
@@ -47,18 +52,14 @@ public class FileUploadController {
                         new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
+                //save register in database
+                Image image = new Image();
+                image.setName(name);
+                image.setUpdatedDate(new Date());
+                imageDAO.saveImage(image);
 
-                logger.info("Server File Location="
-                        + serverFile.getAbsolutePath());
-
-                return "You successfully uploaded file=" + name;
-            } catch (Exception e) {
-                return "You failed to upload "  + e.getMessage();
-            }
-        } else {
-            return "You failed to upload "
-                    + " because the file was empty.";
         }
+        return new ResponseEntity<>(name, HttpStatus.OK);
     }
 
 }

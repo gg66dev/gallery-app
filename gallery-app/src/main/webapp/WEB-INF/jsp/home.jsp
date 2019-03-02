@@ -35,34 +35,7 @@
                   <img class="cell-image" src="images/2mitts1366x768.jpg">
               </div>
             </div>
-            <div class="row">
-              <div class="col-sm">
-                  <img class="cell-image" src="images/2mitts1366x768.jpg">
-              </div>
-              <div class="col-sm">
-                  <img class="cell-image" src="images/2mitts1366x768.jpg">
-              </div>
-              <div class="col-sm">
-                  <img class="cell-image" src="images/2mitts1366x768.jpg">
-              </div>
-              <div class="col-sm">
-                  <img class="cell-image" src="images/2mitts1366x768.jpg">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm">
-                  <img class="cell-image" src="images/2mitts1366x768.jpg">
-              </div>
-              <div class="col-sm">
-                  <img class="cell-image" src="images/2mitts1366x768.jpg">
-              </div>
-              <div class="col-sm">
-                  <img class="cell-image" src="images/2mitts1366x768.jpg">
-              </div>
-              <div class="col-sm">
-                  <img class="cell-image" src="images/2mitts1366x768.jpg">
-              </div>
-            </div>
+
 
             <%--<div>
                 <a href="welcome">Click here to See Welcome Message... </a>(to

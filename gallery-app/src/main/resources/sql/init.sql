@@ -1,4 +1,5 @@
 CREATE TABLE image(
   id SERIAL,
-  path VARCHAR(255)
+  name VARCHAR(255),
+  updateddate timestamp with time zone
 );

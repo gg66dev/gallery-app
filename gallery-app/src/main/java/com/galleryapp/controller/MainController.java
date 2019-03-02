@@ -8,24 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class HelloController {
+public class MainController {
 
-    private ImageDAO imageDAO;
-
-    @Autowired
-    public void setImageDAO(ImageDAO imageDAO) {
-        this.imageDAO = imageDAO;
-    }
 
     /**
      * return view to the list of images
      */
     @RequestMapping("/")
-    public String listImage() {
+    public String home() {
         return "home";
     }
 
-    @RequestMapping("/welcome")
+   /* @RequestMapping("/welcome")
     public ModelAndView helloWorld() {
 
         Image image = new Image();
@@ -35,9 +29,6 @@ public class HelloController {
         String message = "<br><div style='text-align:center;'>"
                 + "<h3>********** Hello World, Spring MVC Tutorial</h3>This message is coming from CrunchifyHelloWorld.java **********</div><br><br>";
         return new ModelAndView("image", "message", message);
-    }
-
-
-
+    }*/
 
 }
