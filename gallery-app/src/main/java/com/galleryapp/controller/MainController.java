@@ -19,16 +19,5 @@ public class MainController {
         return "home";
     }
 
-   /* @RequestMapping("/welcome")
-    public ModelAndView helloWorld() {
-
-        Image image = new Image();
-        image.setPath("hola mundo");
-        imageDAO.saveImage(image);
-
-        String message = "<br><div style='text-align:center;'>"
-                + "<h3>********** Hello World, Spring MVC Tutorial</h3>This message is coming from CrunchifyHelloWorld.java **********</div><br><br>";
-        return new ModelAndView("image", "message", message);
-    }*/
 
 }

@@ -33,33 +33,30 @@ public class MainRestController {
      * Upload single file using Spring Controller
      */
     @PostMapping(value = "/uploadFile")
-    public ResponseEntity<String> uploadFileHandler(@RequestParam("file") MultipartFile file) throws IOException {
-        String name = "";
-        if (!file.isEmpty()) {
-                byte[] bytes = file.getBytes();
-                name = file.getOriginalFilename();
-
-                // Creating the directory to store file
-                String rootPath = System.getProperty("catalina.home");
-                File dir = new File(rootPath + File.separator + "tmpFiles");
-                if (!dir.exists())
-                    dir.mkdirs();
-
-                // Create the file on server
-                File serverFile = new File(dir.getAbsolutePath()
-                        + File.separator + name);
-                BufferedOutputStream stream = new BufferedOutputStream(
-                        new FileOutputStream(serverFile));
-                stream.write(bytes);
-                stream.close();
-                //save register in database
-                Image image = new Image();
-                image.setName(name);
-                image.setUpdatedDate(new Date());
-                imageDAO.saveImage(image);
-
+    public ResponseEntity<String> uploadFileHandler(@RequestParam("file") MultipartFile file) throws Exception {
+        if (file.isEmpty()) {
+            throw new Exception("Not valid file");
         }
-        return new ResponseEntity<>(name, HttpStatus.OK);
+        byte[] bytes = file.getBytes();
+        String name = file.getOriginalFilename();
+        // Creating the directory to store file
+        String rootPath = System.getProperty("catalina.home");
+        File dir = new File(rootPath + File.separator + "tmpFiles");
+        if (!dir.exists())
+            dir.mkdirs();
+        // Create the file on server
+        File serverFile = new File(dir.getAbsolutePath()
+                + File.separator + name);
+        BufferedOutputStream stream = new BufferedOutputStream(
+                new FileOutputStream(serverFile));
+        stream.write(bytes);
+        stream.close();
+        //save register in database
+        Image image = new Image();
+        image.setName(name);
+        image.setUpdatedDate(new Date());
+        imageDAO.saveImage(image);
+        return new ResponseEntity<>("\""+name+"\"", HttpStatus.OK);
     }
 
 }

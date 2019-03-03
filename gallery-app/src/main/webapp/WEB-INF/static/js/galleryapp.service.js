@@ -1,11 +1,18 @@
-app.service('ImageService', function($http) {
+app.service('imageService', function($http) {
    return {
      /**
       * upload new image
       */
      uploadImage: function(file) {
-       return $http.post('/uploadFile', file).then(function(result) {
-           return result.data;
+        var fd = new FormData();
+        fd.append('file', file);
+       return $http.post('/uploadFile', fd,{
+           headers: {
+               'Content-Type': undefined
+           }
+       })
+       .then(function(result) {
+               return result.data;
        });
      }
    }

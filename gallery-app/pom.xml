@@ -22,6 +22,7 @@
         <jsp.version>2.3.1</jsp.version>
         <postgres.version>42.2.5.jre7</postgres.version>
         <org.slf4j-version>1.7.5</org.slf4j-version>
+        <jackson.version>2.9.8</jackson.version>
     </properties>
 
     <repositories>
@@ -190,6 +191,12 @@
             </exclusions>
             <scope>runtime</scope>
         </dependency>
+        <!--jackson-->
+        <dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
         <!--webjars -->
         <dependency>
             <groupId>org.webjars</groupId>

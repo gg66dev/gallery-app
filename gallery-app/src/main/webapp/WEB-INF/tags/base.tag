@@ -30,7 +30,7 @@
 <script src="/webjars/angularjs/1.7.7/angular.min.js"></script>
 <!--my js-->
 <script src="/static/js/galleryapp.app.js"></script>
-<script src="/static/js/galleryapp.factory.js"></script>
+<script src="/static/js/galleryapp.service.js"></script>
 <script src="/static/js/controller/home.controller.js"></script>
 <script src="/static/js/controller/image.controller.js"></script>
 </body>
