@@ -1,10 +1,13 @@
 app.controller('homeController', function($scope, imageService) {
 
     $scope.init = function () {
-        console.log("hola mundo homeController");
+        _refreshImageGrid();
     };
 
 
+    /***
+     * upload a image, refresh grid if upload return success
+     */
     $scope.uploadImage = function(file) {
        if(!file) return;
        imageService.uploadImage(file).then(function (data) {
@@ -17,7 +20,9 @@ app.controller('homeController', function($scope, imageService) {
      * refresh the image grid
      */
     var _refreshImageGrid = function () {
-        console.log("refresh the grid");
+        imageService.getImages().then(function (data) {
+            console.log(data);
+        });
     }
 
 });

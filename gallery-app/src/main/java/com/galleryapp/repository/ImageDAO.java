@@ -1,27 +1,11 @@
 package com.galleryapp.repository;
 
 import com.galleryapp.model.Image;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
+import org.springframework.data.repository.CrudRepository;
 
-import javax.transaction.Transactional;
-
-
-@Repository
-public class ImageDAO {
-
-    private SessionFactory sessionFactory;
-
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    @Transactional
-    public void saveImage(Image image) {
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(image);
-    }
+/***
+ * interface to access to the Image perisistence entity
+ */
+public interface ImageDAO extends QuerydslPredicateExecutor<Image>, CrudRepository<Image, Long> {
 }

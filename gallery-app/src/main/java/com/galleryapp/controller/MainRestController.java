@@ -3,8 +3,10 @@ package com.galleryapp.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import com.galleryapp.model.Image;
 import com.galleryapp.repository.ImageDAO;
@@ -12,6 +14,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,10 +34,10 @@ public class MainRestController {
     }
 
     /**
-     * Upload single file using Spring Controller
+     * Upload single image
      */
     @PostMapping(value = "/uploadFile")
-    public ResponseEntity<String> uploadFileHandler(@RequestParam("file") MultipartFile file) throws Exception {
+    public ResponseEntity<Image> uploadFileHandler(@RequestParam("file") MultipartFile file) throws Exception {
         if (file.isEmpty()) {
             throw new Exception("Not valid file");
         }
@@ -64,9 +67,25 @@ public class MainRestController {
         Image image = new Image();
         image.setName(name);
         image.setUpdatedDate(uploadDate);
-        imageDAO.saveImage(image);
-        return new ResponseEntity<>("\""+name+"\"", HttpStatus.OK);
+        imageDAO.save(image);
+        return new ResponseEntity<>(image, HttpStatus.OK);
     }
 
+
+    /**
+     * get list of images
+     */
+    @GetMapping(value = "/images")
+    public ResponseEntity<List<Image>> getImages() {
+        Iterable it = imageDAO.findAll();
+        Iterator<Image> iterator = it.iterator();
+        List<Image> images = new ArrayList<>();
+        while (iterator.hasNext()) {
+            Image image = iterator.next();
+            images.add(image);
+        }
+        return new ResponseEntity<>(images , HttpStatus.OK);
+    }
 }
+
 

@@ -14,6 +14,15 @@ app.service('imageService', function($http) {
        .then(function(result) {
                return result.data;
        });
+     },
+     /**
+      * return list of images.
+      */
+     getImages: function () {
+        return $http.get('/images')
+            .then(function (result) {
+                return result.data;
+            });
      }
    }
 });
