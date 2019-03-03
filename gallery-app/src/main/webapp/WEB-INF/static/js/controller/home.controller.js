@@ -1,9 +1,13 @@
 app.controller('homeController', function($scope, imageService) {
 
+    /**
+     * list of image show in the grid
+     */
+    $scope.grid = [];
+
     $scope.init = function () {
         _refreshImageGrid();
     };
-
 
     /***
      * upload a image, refresh grid if upload return success
@@ -11,7 +15,6 @@ app.controller('homeController', function($scope, imageService) {
     $scope.uploadImage = function(file) {
        if(!file) return;
        imageService.uploadImage(file).then(function (data) {
-           console.log(data);
            _refreshImageGrid();
        });
     };
@@ -21,7 +24,20 @@ app.controller('homeController', function($scope, imageService) {
      */
     var _refreshImageGrid = function () {
         imageService.getImages().then(function (data) {
-            console.log(data);
+            var grid = [], row = [], i;
+            for (i = 0; i < data.length; i++) {
+                row.push(data[i]);
+                if (row.length === 4) {
+                    grid.push(row);
+                    row = [];
+                }
+            }
+            for (i = (4 - row.length); i > 0; i--) {
+                row.push({});
+            }
+            grid.push(row);
+            $scope.grid = grid;
+            console.log(grid);
         });
     }
 

@@ -7,9 +7,9 @@
 <t:base title="Gallery App - List">
     <jsp:attribute name="content">
         <div ng-controller="homeController" ng-init="init()" >
-
+            <!--header-->
             <t:header/>
-
+            <!--site main statistic -->
             <div class="py-1 text-center">
                 <p class="lead">
                     1.000.000 images uploaded.
@@ -18,36 +18,13 @@
                     500 comments
                 </p>
             </div>
-
-
-
-           <div class="row">
-              <div class="col-sm">
-                  <img class="cell-image" src="images/2mitts1366x768.jpg">
-              </div>
-              <div class="col-sm">
-                  <img class="cell-image" src="images/2mitts1366x768.jpg">
-              </div>
-              <div class="col-sm">
-                  <img class="cell-image" src="images/2mitts1366x768.jpg">
-              </div>
-              <div class="col-sm">
-                  <img class="cell-image" src="images/2mitts1366x768.jpg">
-              </div>
+            <div ng-repeat="row in grid">
+               <div class="row">
+                  <div class="col-sm" ng-repeat="image in row">
+                      <img class="cell-image" src="images/{{image.name}}">
+                  </div>
+                </div>
             </div>
-
-
-            <%--<div>
-                <a href="welcome">Click here to See Welcome Message... </a>(to
-                check Spring MVC Controller... @RequestMapping("/welcome"))
-            </div>
-            <form method="POST" action="uploadFile" enctype="multipart/form-data">
-                    File to upload:
-                <input type="file"
-                       accept="image/x-png,image/gif,image/jpeg"
-                       name="file"><br />
-                <input type="submit" value="Upload"> Press here to upload the file!
-            </form>--%>
         </div>
     </jsp:attribute>
 </t:base>
