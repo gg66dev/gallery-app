@@ -8,6 +8,7 @@ import java.util.Date;
 
 import com.galleryapp.model.Image;
 import com.galleryapp.repository.ImageDAO;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +45,14 @@ public class MainRestController {
         File dir = new File(rootPath + File.separator + "tmpFiles");
         if (!dir.exists())
             dir.mkdirs();
+        //rename file name with sha-256
+        Date uploadDate = new Date();
+        String postfix = Long.toString(uploadDate.getTime());//Add timestap as postfix
+        String[] arrFilename = name.split("\\.");
+        String extension = "." + arrFilename[arrFilename.length - 1];
+        name = name.replace(extension,"");
+        name = DigestUtils.sha256Hex(name+postfix);
+        name = name + extension;
         // Create the file on server
         File serverFile = new File(dir.getAbsolutePath()
                 + File.separator + name);
@@ -54,7 +63,7 @@ public class MainRestController {
         //save register in database
         Image image = new Image();
         image.setName(name);
-        image.setUpdatedDate(new Date());
+        image.setUpdatedDate(uploadDate);
         imageDAO.saveImage(image);
         return new ResponseEntity<>("\""+name+"\"", HttpStatus.OK);
     }
