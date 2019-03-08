@@ -1,3 +1,7 @@
+
+/**
+ * Controller from home view
+ */
 app.controller('homeController', function($scope, imageService) {
 
     /**
@@ -9,14 +13,11 @@ app.controller('homeController', function($scope, imageService) {
         _refreshImageGrid();
     };
 
-    /***
-     * upload a image, refresh grid if upload return success
+    /**
+     * load content in page
      */
-    $scope.uploadImage = function(file) {
-       if(!file) return;
-       imageService.uploadImage(file).then(function (data) {
-           _refreshImageGrid();
-       });
+    $scope.load = function () {
+        _refreshImageGrid();
     };
 
     /***

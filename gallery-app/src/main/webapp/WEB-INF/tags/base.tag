@@ -33,5 +33,6 @@
 <script src="/static/js/galleryapp.service.js"></script>
 <script src="/static/js/controller/home.controller.js"></script>
 <script src="/static/js/controller/image.controller.js"></script>
+<script src="/static/js/controller/header.controller.js"></script>
 </body>
 </html>
