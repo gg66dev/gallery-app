@@ -16,12 +16,15 @@
                     21.000.000 likes
                     80.000.000 unlikes
                     500 comments
+                    1.000.000.000 views.
                 </p>
             </div>
             <div ng-repeat="row in grid">
                <div class="row">
                   <div class="col-sm" ng-repeat="image in row">
-                      <img class="cell-image" src="images/{{image.name}}">
+                      <a href="/{{image.name}}" >
+                        <img class="cell-image" ng-src="images/{{image.name}}">
+                      </a>
                   </div>
                 </div>
             </div>

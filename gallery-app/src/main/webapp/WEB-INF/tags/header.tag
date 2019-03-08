@@ -7,7 +7,7 @@
       <div class="col-4 pt-1">
       </div>
       <div class="col-4 text-center">
-        <h3 class="blog-header-logo text-dark" href="#">Gallery App</h3>
+        <h3 class="blog-header-logo text-dark"><a href="/">Gallery App</a></h3>
       </div>
       <div class="col-4 d-flex justify-content-end align-items-center">
         <file-upload on-finish="uploadImage" />
