@@ -249,6 +249,11 @@
             <artifactId>angularjs</artifactId>
             <version>1.7.7</version>
         </dependency>
+       <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>5.7.2</version>
+        </dependency>
     </dependencies>
 
     <build>

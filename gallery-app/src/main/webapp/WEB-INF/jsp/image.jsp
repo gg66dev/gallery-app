@@ -15,26 +15,42 @@
                 </p>
             </div>
             <div class="row">
-                <div class="col-8">
+                <div class="col-8 image-container">
                     <img class="cell-image" ng-src="/images/{{mainImage}}" >
                 </div>
-                <div class="col-4 coment-panel">
+                <div class="col-4 coment-panel scroller">
                    <ul id="comments-list" class="comments-list">
                         <li ng-repeat="comment in comments track by $index" >
                             <div class="comment-box">
-                                <div class="comment-content">
-                                    {{ comment }}
+                                <div class="comment-head">
+                                    <span>{{ comment.date }}</span>
                                 </div>
+                                <div class="comment-content">
+                                    {{ comment.text }}
+                                </div>
+
                             </div>
                         </li>
                    </ul>
                 </div>
             </div>
             <div class="row">
-                <div class="col-8"></div>
+                <div class="col-8">
+                    <div class="like-panel">
+                       <a class="btn" href="#">
+                             <i class="fas fa-thumbs-up"></i></a>
+
+                        <a>
+                            <i class="fas fa-thumbs-up"></i>
+                        </a>
+                        <a>
+                            <i class="fas fa-thumbs-down"></i>
+                        </a>
+                    </div>
+                </div>
                 <div class="col-4 float-right">
                     <div class="form-group purple-border">
-                        <textarea class="form-control mt-2"
+                        <textarea class="form-control mt-2 text-area"
                                   ng-model="targetComment"
                                   maxlength="50"
                                   rows="3"></textarea>

@@ -9,7 +9,8 @@ app.controller('imageController', function($scope) {
     $scope.mainImage = null;
 
 
-    $scope.comments = [];
+    $scope.comments = [
+    ];
 
     $scope.targetComment = null;
 
@@ -19,7 +20,10 @@ app.controller('imageController', function($scope) {
     };
 
     $scope.addComent = function ( ) {
-        $scope.comments.push($scope.targetComment);
+        $scope.comments.push({
+            text: $scope.targetComment,
+            date: new Date()
+        });
         $scope.targetComment = "";
     }
 

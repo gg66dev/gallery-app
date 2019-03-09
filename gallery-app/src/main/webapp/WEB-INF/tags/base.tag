@@ -4,7 +4,7 @@
 
 <!doctype html>
 <html lang="en">
-<head>
+<link>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,6 +12,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css"></link>
+    <link rel="stylesheet" href="/webjars/font-awesome/5.7.2/css/fontawesome.min.css"></link>
     <link rel="stylesheet" href="/static/css/galleryapp.css"></link>
     <title>${title}</title>
 </head>

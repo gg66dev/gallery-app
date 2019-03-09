@@ -132,6 +132,14 @@ ul {
     border-radius: 4px 4px 0 0;
 }
 
+.comment-box span {
+    float: left;
+    color: #999;
+    font-size: 13px;
+    position: relative;
+    top: 1px;
+}
+
 .comment-box .comment-content {
     background: #FFF;
     padding: 12px;
@@ -147,13 +155,32 @@ ul {
     word-wrap: break-word;
 }
 
+.image-container {
+    height: 100%;
+}
+
+.scroller {
+   height: 400px;
+   overflow-y:scroll;
+}
+
 /***
 Comment button
 */
 
+.text-area {
+    width: 245px;
+    margin-right: 0;
+    float: left;
+}
+
 .btn-comment {
-    position: relative;
     display: inline-block;
+    position: relative;
     margin-top: 10px;
     height: 85px;
+}
+
+.like-panel {
+    margin-top: 10px;
 }
