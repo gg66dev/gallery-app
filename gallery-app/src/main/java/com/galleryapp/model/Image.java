@@ -17,8 +17,14 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    /**
+     * name of image
+     */
     private String name;
 
+    /**
+     * updated date
+     */
     private Date updatedDate;
 
     public int getId() {
