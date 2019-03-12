@@ -1,0 +1,5 @@
+FROM postgres:11.2-alpine
+
+COPY src/main/resources/sql/init.sql  /docker-entrypoint-initdb.d/
+
+

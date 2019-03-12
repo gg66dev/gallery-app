@@ -11,9 +11,9 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface PageViewDAO extends QuerydslPredicateExecutor<PageView>, CrudRepository<PageView, Long> {
 
-    Integer getTotalLikes(String url);
+    //Integer getTotalLikes(String url);
 
-    Integer getTotalUnlikes(String url);
+   // Integer getTotalUnlikes(String url);
 
     PageView findByViewerAndPage(Viewer viewer, Page page);
 }

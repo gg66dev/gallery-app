@@ -204,7 +204,7 @@ public class MainRestController {
         PageView pageView = pageViewService.findPageView(ip, url);
         pageView.setLike(like);
         pageViewDAO.save(pageView);
-        totalLikeImage = pageViewDAO.getTotalLikes(url);
+        totalLikeImage = 0;//TODO: pageViewDAO.getTotalLikes(url);
         return new ResponseEntity<>(totalLikeImage, HttpStatus.OK);
     }
 
@@ -225,7 +225,7 @@ public class MainRestController {
         PageView pageView = pageViewService.findPageView(ip, url);
         pageView.setUnlike(unlike);
         pageViewDAO.save(pageView);
-        totalUnlikeImage = pageViewDAO.getTotalUnlikes(url);
+        totalUnlikeImage = 0;//TODO: pageViewDAO.getTotalUnlikes(url);
         return new ResponseEntity<>(totalUnlikeImage, HttpStatus.OK);
     }
 

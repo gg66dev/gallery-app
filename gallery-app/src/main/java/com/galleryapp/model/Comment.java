@@ -34,7 +34,7 @@ public class Comment {
      * pageView associated to comment
      */
     @ManyToOne
-    @JoinColumn(name="pageview_id", nullable=false)
+    @JoinColumn(name="pageview_id")
     private PageView pageView;
 
     public int getId() {

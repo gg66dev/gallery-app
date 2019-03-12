@@ -5,11 +5,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import java.util.Date;
 
 @Entity
-@Table
+@Table(
+        indexes = {
+                @Index(name = "image_name_idx", columnList = "name"),
+       },
+        uniqueConstraints = {
+                @UniqueConstraint(name = "image_name_unique", columnNames = {"name"}),
+        }
+)
 public class Image {
 
     @Id

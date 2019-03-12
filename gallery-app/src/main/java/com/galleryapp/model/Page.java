@@ -1,12 +1,25 @@
 package com.galleryapp.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
+@Entity
+@Table(
+        indexes = {
+                @Index(name = "page_url_idx", columnList = "url"),
+       },
+        uniqueConstraints = {
+                @UniqueConstraint(name = "page_url_unique", columnNames = {"url"}),
+        }
+)
 public class Page {
 
     @Id

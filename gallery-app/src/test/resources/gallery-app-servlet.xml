@@ -38,9 +38,9 @@
     <bean id="dataSourceGlobal" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">
         <property name="driverClass" value="org.postgresql.Driver" />
-        <property name="jdbcUrl" value="jdbc:postgresql://192.168.99.100:5432/gallery-app?charSet=UTF-8" />
-        <property name="user" value="gallery-app" />
-        <property name="password" value="gallery-app" />
+        <property name="jdbcUrl" value="jdbc:postgresql://192.168.99.100:5432/postgres_test?charSet=UTF-8" />
+        <property name="user" value="postgres_test" />
+        <property name="password" value="postgres_test" />
         <!-- these are C3P0 properties -->
         <property name="acquireIncrement" value="1" />
         <property name="minPoolSize" value="5" />
@@ -61,7 +61,7 @@
         <property name="dataSource" ref="dataSourceGlobal" />
         <property name="packagesToScan" value="com.galleryapp.model"/>
         <property name="jpaVendorAdapter">
-             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
                 <property name="generateDdl" value="true" />
                 <property name="showSql" value="false"/>
                 <property name="databasePlatform" value="org.hibernate.dialect.PostgreSQL95Dialect"/>

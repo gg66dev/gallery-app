@@ -1,38 +1,44 @@
 CREATE TABLE image(
-  id SERIAL,
-  name VARCHAR(255),
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) CONSTRAINT image_name_unique UNIQUE,
   updateddate TIMESTAMP WITH TIME ZONE
 );
 -- index name
+create index image_name_idx on image (name);
+-- name must be unique
 
 CREATE TABLE page(
-  id SERIAL,
-  url VARCHAR(255),
+  id SERIAL PRIMARY KEY,
+  url VARCHAR(255) CONSTRAINT page_url_unique UNIQUE,
   image_id BIGINT,
   FOREIGN KEY (image_id) REFERENCES image (id)
 );
 -- index url
+create index page_url_idx on page (url);
+-- url must be unique
 
 CREATE TABLE viewer(
-  id SERIAL,
-  ip VARCHAR(255),
+  id SERIAL PRIMARY KEY,
+  ip VARCHAR(255) CONSTRAINT  viewer_ip_unique UNIQUE,
   createddate TIMESTAMP WITH TIME ZONE,
   lastvisitdate TIMESTAMP WITH TIME ZONE
 );
 -- index ip
+create index viewer_ip_idx on viewer (ip);
+-- ip must be unique
 
 CREATE TABLE pageview(
-  id SERIAL,
+  id SERIAL PRIMARY KEY,
   viewer_id BIGINT,
   page_id BIGINT,
-  like BOOLEAN,
+  "like" BOOLEAN,
   unlike BOOLEAN,
   FOREIGN KEY (viewer_id) REFERENCES viewer (id),
   FOREIGN KEY (page_id) REFERENCES page (id)
 );
 
 CREATE TABLE comment(
-  id SERIAL,
+  id SERIAL PRIMARY KEY,
   createddate TIMESTAMP WITH TIME ZONE,
   message VARCHAR(255),
   pageview_id BIGINT,
