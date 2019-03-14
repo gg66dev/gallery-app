@@ -9,11 +9,9 @@ import org.springframework.data.repository.CrudRepository;
 /***
  * interface to access to the PageView perisistence entity
  */
-public interface PageViewDAO extends QuerydslPredicateExecutor<PageView>, CrudRepository<PageView, Long> {
-
-    //Integer getTotalLikes(String url);
-
-   // Integer getTotalUnlikes(String url);
+public interface PageViewDAO
+        extends QuerydslPredicateExecutor<PageView>, CrudRepository<PageView, Long>,
+                PageViewCustomDAO {
 
     PageView findByViewerAndPage(Viewer viewer, Page page);
 }

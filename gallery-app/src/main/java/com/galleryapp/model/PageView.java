@@ -3,6 +3,7 @@ package com.galleryapp.model;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,7 +43,7 @@ public class PageView {
     /**
      * list of comments
      */
-    @OneToMany(mappedBy="pageView", cascade = {CascadeType.ALL })
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="pageView", cascade = {CascadeType.ALL})
     private List<Comment> comments;
 
     /**

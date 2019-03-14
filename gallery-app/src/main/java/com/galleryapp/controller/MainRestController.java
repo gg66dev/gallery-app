@@ -195,17 +195,15 @@ public class MainRestController {
      * @return total number of likes of the image.
      */
     @PostMapping(value = "/{url}/like")
-    public ResponseEntity<Integer> likeImage(@PathVariable String url,
+    public ResponseEntity<Boolean> likeImage(@PathVariable String url,
                                              @RequestBody Boolean like,
                                              HttpServletRequest request)
             throws NotFoundPageException, NotFoundViewerException {
-        Integer totalLikeImage;
         String ip = request.getRemoteAddr();
         PageView pageView = pageViewService.findPageView(ip, url);
         pageView.setLike(like);
         pageViewDAO.save(pageView);
-        totalLikeImage = 0;//TODO: pageViewDAO.getTotalLikes(url);
-        return new ResponseEntity<>(totalLikeImage, HttpStatus.OK);
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
 
@@ -216,17 +214,15 @@ public class MainRestController {
      * @return total number of unlikes of the image.
      */
     @PostMapping(value = "/{url}/unlike")
-    public ResponseEntity<Integer> unlikeImage(@PathVariable String url,
+    public ResponseEntity<Boolean> unlikeImage(@PathVariable String url,
                                                @RequestBody Boolean unlike,
                                                HttpServletRequest request)
             throws NotFoundPageException, NotFoundViewerException {
-        Integer totalUnlikeImage;
         String ip = request.getRemoteAddr();
         PageView pageView = pageViewService.findPageView(ip, url);
         pageView.setUnlike(unlike);
         pageViewDAO.save(pageView);
-        totalUnlikeImage = 0;//TODO: pageViewDAO.getTotalUnlikes(url);
-        return new ResponseEntity<>(totalUnlikeImage, HttpStatus.OK);
+        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
 }

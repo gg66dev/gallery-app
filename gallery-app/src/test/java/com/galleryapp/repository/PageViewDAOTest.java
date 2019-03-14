@@ -1,6 +1,7 @@
 package com.galleryapp.repository;
 
 
+import com.galleryapp.model.Comment;
 import com.galleryapp.model.Page;
 import com.galleryapp.model.PageView;
 import com.galleryapp.model.Viewer;
@@ -12,12 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 
@@ -57,17 +61,47 @@ public class PageViewDAOTest {
         pageView.setPage(page);
         pageView.setViewer(viewer);
         pageViewDAO.save(pageView);
+        pageViews.add(pageView);
 
         assertThat(pageView.getId(), is(notNullValue()));
         assertThat(pageView.getPage().getId(), is(notNullValue()));
         assertThat(pageView.getViewer().getId(), is(notNullValue()));
-        pageViews.add(pageView);
     }
 
-    //test to add comment
+    @Transactional //fetch commments in pageView find method
+    @Test
+    public void testAddAComment() {
+        Page page = new Page();
+        page.setUrl("/home");
+        Viewer viewer = new Viewer();
+        viewer.setIp("111.111.111.111");
+        PageView pageView = new PageView();
+        pageView.setPage(page);
+        pageView.setViewer(viewer);
+        pageViewDAO.save(pageView);
+        pageViews.add(pageView);
 
-    //test to like page
+        PageView dbPageView = pageViewDAO.findByViewerAndPage(pageView.getViewer(), pageView.getPage());
+        dbPageView.setComments(new ArrayList<>());
+        Comment comment = new Comment();
+        comment.setMessage("Hello world");
+        comment.setCreatedDate(new Date());
+        dbPageView.getComments().add(comment);
+        pageViewDAO.save(dbPageView);
+        dbPageView = pageViewDAO.findByViewerAndPage(pageView.getViewer(), pageView.getPage());
+        assertThat(dbPageView.getComments().get(0).getId(), is(notNullValue()));
+    }
 
-    //test to unlike page
+    @Test
+    public void testCountLikes() {
+       Integer likes = pageViewDAO.getTotalLikes("mypage");
+       assertThat(likes, equalTo(0));
+    }
+
+    @Test
+    public void testCountUnlikes () {
+        Integer unlikes = pageViewDAO.getTotalUnlikes("mypage");
+        assertThat(unlikes, equalTo(0));
+    }
 
 }
