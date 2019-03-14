@@ -1,5 +1,6 @@
 package com.galleryapp.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(
@@ -30,13 +32,14 @@ public class Page {
     /**
      * image realted to page (for home this attribute is null)
      */
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "image_id")
     private Image image;
 
     /**
      * url of page
      */
+    @NotNull
     private String url;
 
     public int getId() {

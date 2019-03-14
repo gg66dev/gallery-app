@@ -1,5 +1,6 @@
 package com.galleryapp.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 
@@ -23,17 +25,19 @@ public class Comment {
     /**
      * crated date
      */
+    @NotNull
     private Date createdDate;
 
     /**
      * comment message
      */
+    @NotNull
     private String message;
 
     /**
      * pageView associated to comment
      */
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="pageview_id")
     private PageView pageView;
 

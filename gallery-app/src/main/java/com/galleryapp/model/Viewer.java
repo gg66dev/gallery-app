@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -29,6 +30,7 @@ public class Viewer {
     /**
      * ip of viewer
      */
+    @NotNull
     private String ip;
 
     /**

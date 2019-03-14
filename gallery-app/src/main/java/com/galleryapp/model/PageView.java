@@ -1,5 +1,6 @@
 package com.galleryapp.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,34 +21,40 @@ public class PageView {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="viewer_id", nullable=false)
     private Viewer viewer;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name="page_id", nullable=false)
     private Page page;
 
     /**
      * if pageView have like
      */
-    private boolean like;
+    private boolean isLike;
 
     /**
      * if pageView have unlike
      */
-    private boolean unlike;
+    private boolean isUnlike;
 
     /**
      * list of comments
      */
-    @OneToMany(mappedBy="pageView")
+    @OneToMany(mappedBy="pageView", cascade = {CascadeType.ALL })
     private List<Comment> comments;
 
     /**
      * num of views (all pages)
      */
     private Long numViews;
+
+    public PageView() {
+        isLike = false;
+        isUnlike = false;
+        numViews = 0L;
+    }
 
     public int getId() {
         return id;
@@ -74,19 +81,19 @@ public class PageView {
     }
 
     public boolean isLike() {
-        return like;
+        return isLike;
     }
 
     public void setLike(boolean like) {
-        this.like = like;
+        this.isLike = like;
     }
 
     public boolean isUnlike() {
-        return unlike;
+        return isUnlike;
     }
 
     public void setUnlike(boolean unlike) {
-        this.unlike = unlike;
+        this.isUnlike = unlike;
     }
 
     public List<Comment> getComments() {

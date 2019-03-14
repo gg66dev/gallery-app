@@ -1,6 +1,6 @@
 CREATE TABLE image(
   id SERIAL PRIMARY KEY,
-  name VARCHAR(255) CONSTRAINT image_name_unique UNIQUE,
+  name VARCHAR(255) NOT NULL CONSTRAINT image_name_unique UNIQUE,
   updateddate TIMESTAMP WITH TIME ZONE
 );
 -- index name
@@ -9,7 +9,7 @@ create index image_name_idx on image (name);
 
 CREATE TABLE page(
   id SERIAL PRIMARY KEY,
-  url VARCHAR(255) CONSTRAINT page_url_unique UNIQUE,
+  url VARCHAR(255) NOT NULL CONSTRAINT page_url_unique UNIQUE,
   image_id BIGINT,
   FOREIGN KEY (image_id) REFERENCES image (id)
 );
@@ -19,7 +19,7 @@ create index page_url_idx on page (url);
 
 CREATE TABLE viewer(
   id SERIAL PRIMARY KEY,
-  ip VARCHAR(255) CONSTRAINT  viewer_ip_unique UNIQUE,
+  ip VARCHAR(255) NOT NULL CONSTRAINT  viewer_ip_unique UNIQUE,
   createddate TIMESTAMP WITH TIME ZONE,
   lastvisitdate TIMESTAMP WITH TIME ZONE
 );
@@ -39,8 +39,8 @@ CREATE TABLE pageview(
 
 CREATE TABLE comment(
   id SERIAL PRIMARY KEY,
-  createddate TIMESTAMP WITH TIME ZONE,
-  message VARCHAR(255),
+  createddate TIMESTAMP WITH TIME ZONE NOT NULL ,
+  message VARCHAR(255) NOT NULL,
   pageview_id BIGINT,
   FOREIGN KEY (pageview_id) REFERENCES pageview (id)
 );
