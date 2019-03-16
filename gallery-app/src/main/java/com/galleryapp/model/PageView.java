@@ -34,7 +34,6 @@ public class PageView {
     @JoinColumn(name="viewer_id", nullable=false)
     private Viewer viewer;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="page_id", nullable=false)
     private Page page;

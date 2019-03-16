@@ -63,37 +63,52 @@ app.controller('imageController', function($scope, imageService) {
      * like page
      */
     $scope.likePage = function () {
-      $scope.page.isLike = !$scope.page.isLike;
+        var page = $scope.page;
+        page.isLike = !page.isLike;
       //cant like and unlike an image
-      if ($scope.page.isUnlike) {
-          $scope.page.isUnlike = false;
-          $scope.page.totalUnlikes = $scope.page.totalUnlikes - 1;
+      if (page.isUnlike) {
+          page.isUnlike = false;
+          page.totalUnlikes = page.totalUnlikes - 1;
       }
       //update count and save the like
-       if ($scope.page.isLike) {
-           $scope.page.totalLikes = $scope.page.totalLikes + 1;
+       if (page.isLike) {
+           page.totalLikes = page.totalLikes + 1;
        } else {
-           $scope.page.totalLikes = $scope.page.totalLikes - 1;
+           $scope.page.totalLikes = page.totalLikes - 1;
        }
-       //imageService.updatePageView()
+       imageService.updatePageView({
+           like: page.isLike,
+           unlike: page.isUnlike,
+           page: {
+               url: page.imageHash
+           }
+       });
     };
 
     /**
      * unlike page
      */
     $scope.unlikePage = function () {
-        $scope.page.isUnlike = !$scope.page.isUnlike;
+        var page = $scope.page;
+        page.isUnlike = !page.isUnlike;
         //cant like and unlike an image
-        if ($scope.page.isLike) {
-          $scope.page.isLike = false;
-          $scope.page.totalLikes = $scope.page.totalLikes - 1;
+        if (page.isLike) {
+          page.isLike = false;
+          page.totalLikes = page.totalLikes - 1;
        }
        //update status and save the like
-        if ($scope.page.isUnlike) {
-           $scope.page.totalUnlikes = $scope.page.totalUnlikes + 1;
+        if (page.isUnlike) {
+           page.totalUnlikes = page.totalUnlikes + 1;
        } else {
-           $scope.page.totalUnlikes = $scope.page.totalUnlikes - 1;
+           page.totalUnlikes = page.totalUnlikes - 1;
        }
+       imageService.updatePageView({
+           like: page.isLike,
+           unlike: page.isUnlike,
+           page: {
+               url: page.imageHash
+           }
+       });
     };
 
     /**

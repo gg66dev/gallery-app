@@ -37,8 +37,8 @@ app.service('imageService', function($http) {
      /**
       * save status of like/unlike of the page
       */
-     updatePageView: function (imageHash, pageView) {
-         return $http.put('/api/pageView/'+ imageHash, pageView)
+     updatePageView: function (pageView) {
+         return $http.put('/api/pageview', pageView)
              .then(function (result) {
                 return result.data;
              });

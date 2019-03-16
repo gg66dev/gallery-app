@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -169,7 +170,13 @@ public class MainRestController {
     }
 
     /**
-     * get pageView data
+     * get the pageview of the page and the viewer
+     *
+     * @param url url from the page
+     * @param request request data
+     * @return pageView
+     * @throws NotFoundPageException if page is not found
+     * @throws NotFoundViewerException if viewer is not found
      */
     @GetMapping(value = "/pageview")
     public ResponseEntity<PageView> getPageView(
@@ -183,8 +190,38 @@ public class MainRestController {
            throw new NotFoundPageException();
         }
         PageView pageView = pageViewService.findPageView(ip, url);
-        return new ResponseEntity<PageView>(pageView, HttpStatus.OK);
+        return new ResponseEntity<>(pageView, HttpStatus.OK);
     };
+
+    /**
+     * update values of 'like' and 'unlike' of the pageView
+     *
+     * @param pageView updated pageView
+     * @param request  request data
+     * @return updated pageView
+     * @throws NotFoundPageException if page is not found
+     * @throws NotFoundViewerException if viewer is not found
+     */
+    @PutMapping(value = "/pageview")
+    public ResponseEntity<PageView> updatePageView(
+            @RequestBody PageView pageView,
+            HttpServletRequest request)
+            throws NotFoundPageException, NotFoundViewerException {
+        String ip = request.getRemoteAddr();
+        if (ip == null) {
+            throw new NotFoundViewerException();
+        }
+        if (pageView == null || pageView.getPage() == null || pageView.getPage().getUrl() == null) {
+           throw new NotFoundPageException();
+        }
+        PageView dbPageView = pageViewService.findPageView(
+                ip, pageView.getPage().getUrl());
+        //update like and unlike values
+        dbPageView.setLike(pageView.isLike());
+        dbPageView.setUnlike(pageView.isUnlike());
+        pageViewDAO.save(dbPageView);
+        return new ResponseEntity<>(pageView, HttpStatus.OK);
+    }
 
     /**
      * add a comment
@@ -206,43 +243,6 @@ public class MainRestController {
        pageView.getComments().add(comment);
        pageViewDAO.save(pageView);
        return new ResponseEntity<>(comment, HttpStatus.CREATED);
-    }
-
-    /**
-     * like Image
-     * @param url url of image
-     * @param request servlet request
-     * @return total number of likes of the image.
-     */
-    @PostMapping(value = "/{url}/like")
-    public ResponseEntity<Boolean> likeImage(@PathVariable String url,
-                                             @RequestBody Boolean like,
-                                             HttpServletRequest request)
-            throws NotFoundPageException, NotFoundViewerException {
-        String ip = request.getRemoteAddr();
-        PageView pageView = pageViewService.findPageView(ip, url);
-        pageView.setLike(like);
-        pageViewDAO.save(pageView);
-        return new ResponseEntity<>(true, HttpStatus.OK);
-    }
-
-
-    /**
-     * unlike Image
-     * @param url url of image
-     * @param request servlet request
-     * @return total number of unlikes of the image.
-     */
-    @PostMapping(value = "/{url}/unlike")
-    public ResponseEntity<Boolean> unlikeImage(@PathVariable String url,
-                                               @RequestBody Boolean unlike,
-                                               HttpServletRequest request)
-            throws NotFoundPageException, NotFoundViewerException {
-        String ip = request.getRemoteAddr();
-        PageView pageView = pageViewService.findPageView(ip, url);
-        pageView.setUnlike(unlike);
-        pageViewDAO.save(pageView);
-        return new ResponseEntity<>(true, HttpStatus.OK);
     }
 
 }
