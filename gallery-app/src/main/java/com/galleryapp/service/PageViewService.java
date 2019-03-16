@@ -13,6 +13,7 @@ import com.galleryapp.repository.PageViewDAO;
 import com.galleryapp.repository.ViewerDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -101,6 +102,7 @@ public class PageViewService {
      * @param url url of the page
      * @return the pageView
      */
+    @Transactional
     public PageView findPageView(String ip, String url)
             throws NotFoundViewerException, NotFoundPageException {
        Page page = pageDAO.findByUrl(url);
@@ -110,7 +112,14 @@ public class PageViewService {
        Viewer viewer = viewerDAO.findByIp(ip);
        if (viewer == null)
            throw new NotFoundViewerException();
-       return pageViewDAO.findByViewerAndPage(viewer,page);
+       PageView pageView = pageViewDAO.findByViewerAndPage(viewer,page);
+       pageView.setTotalLikes(
+               pageViewDAO.getTotalLikes(url)
+       );
+       pageView.setTotalUnlikes(
+               pageViewDAO.getTotalUnlikes(url)
+       );
+       return  pageView;
     }
 
 }

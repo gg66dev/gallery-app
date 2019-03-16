@@ -44,10 +44,13 @@ public class MainController {
     public String image(@PathVariable String imageHash,
                         HttpServletRequest request,
                         Model model) throws NotFoundImageException {
+        if (imageHash.equals("favicon.ico")) {
+            return "favicon.ico";
+        }
         //register the viewer if doesnt exists
         String ip = request.getRemoteAddr();
         pageViewService.registerView(ip, imageHash);
-        model.addAttribute("permalink", imageHash);
+        model.addAttribute("imageHash", imageHash);
         return "image";
     }
 }

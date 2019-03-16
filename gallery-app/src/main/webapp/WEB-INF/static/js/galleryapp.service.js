@@ -1,12 +1,12 @@
 app.service('imageService', function($http) {
-   return {
+    return {
      /**
       * upload new image
       */
      uploadImage: function(file) {
         var fd = new FormData();
         fd.append('file', file);
-       return $http.post('/uploadFile', fd,{
+       return $http.post('/api/uploadFile', fd,{
            headers: {
                'Content-Type': undefined
            }
@@ -19,10 +19,29 @@ app.service('imageService', function($http) {
       * return list of images.
       */
      getImages: function () {
-        return $http.get('/images')
+        return $http.get('/api/images')
             .then(function (result) {
                 return result.data;
             });
+     },
+     /**
+      * return the number of likes, unlikes and views from a page
+      */
+     getPageView: function (imageHash) {
+        return $http.get('/api/pageview',
+            {params: {url: imageHash}})
+            .then(function (result) {
+               return result.data;
+            });
+     },
+     /**
+      * save status of like/unlike of the page
+      */
+     updatePageView: function (imageHash, pageView) {
+         return $http.put('/api/pageView/'+ imageHash, pageView)
+             .then(function (result) {
+                return result.data;
+             });
      }
    }
 });

@@ -6,7 +6,7 @@
 
 <t:base title="Gallery App - List">
     <jsp:attribute name="content">
-        <div ng-controller="imageController" ng-init="init('${imageHash}')" >
+        <div ng-controller="imageController" ng-init="init('${imageHash}')" ng-cloak>
             <!--header-->
             <t:header/>
            <div class="py-1 text-center">
@@ -16,11 +16,11 @@
             </div>
             <div class="row">
                 <div class="col-8 image-container">
-                    <img class="cell-image" ng-src="/images/{{mainImage}}" >
+                    <img class="cell-image" ng-src="/images/{{page.imageHash}}" >
                 </div>
                 <div class="col-4 coment-panel scroller">
                    <ul id="comments-list" class="comments-list">
-                        <li ng-repeat="comment in comments track by $index" >
+                        <li ng-repeat="comment in page.comments track by $index" >
                             <div class="comment-box">
                                 <div class="comment-head">
                                     <span>{{ comment.date }}</span>
@@ -37,25 +37,30 @@
             <div class="row">
                 <div class="col-8">
                     <div class="like-panel">
-                       <a class="btn" href="#">
-                             <i class="fas fa-thumbs-up"></i></a>
-
-                        <a>
-                            <i class="fas fa-thumbs-up"></i>
+                         <span>
+                            {{ page.views }}
+                           <i class="far fa-2x fa-eye"></i>
+                        </span>
+                        <a ng-click="likePage()">
+                            {{ page.totalLikes }}
+                            <i ng-if="!page.isLike" class="far fa-2x fa-thumbs-up"></i>
+                            <i ng-if="page.isLike" class="fas fa-2x fa-thumbs-up"></i>
                         </a>
-                        <a>
-                            <i class="fas fa-thumbs-down"></i>
+                        <a ng-click="unlikePage()">
+                            {{ page.totalUnlikes }}
+                            <i ng-if="!page.isUnlike" class="far fa-2x fa-thumbs-down"></i>
+                            <i ng-if="page.isUnlike" class="fas fa-2x fa-thumbs-down"></i>
                         </a>
                     </div>
                 </div>
                 <div class="col-4 float-right">
                     <div class="form-group purple-border">
                         <textarea class="form-control mt-2 text-area"
-                                  ng-model="targetComment"
+                                  ng-model="page.targetComment"
                                   maxlength="50"
                                   rows="3"></textarea>
                         <button class="btn-comment"
-                                ng-disabled="!targetComment"
+                                ng-disabled="!page.targetComment"
                                 ng-click="addComent()">comment!</button>
                     </div>
                 </div>

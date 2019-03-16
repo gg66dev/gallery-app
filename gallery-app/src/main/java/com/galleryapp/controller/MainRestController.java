@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -38,7 +39,8 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Handles requests for the application file upload requests
  */
-@RestController
+@RestController()
+@RequestMapping("/api")
 public class MainRestController {
 
     /**
@@ -165,6 +167,24 @@ public class MainRestController {
         }
         return new ResponseEntity<>(images , HttpStatus.OK);
     }
+
+    /**
+     * get pageView data
+     */
+    @GetMapping(value = "/pageview")
+    public ResponseEntity<PageView> getPageView(
+           @RequestParam("url") String url, HttpServletRequest request)
+            throws NotFoundPageException, NotFoundViewerException {
+        String ip = request.getRemoteAddr();
+        if (ip == null) {
+            throw new NotFoundViewerException();
+        }
+        if (url == null) {
+           throw new NotFoundPageException();
+        }
+        PageView pageView = pageViewService.findPageView(ip, url);
+        return new ResponseEntity<PageView>(pageView, HttpStatus.OK);
+    };
 
     /**
      * add a comment

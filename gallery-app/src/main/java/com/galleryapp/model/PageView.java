@@ -1,5 +1,9 @@
 package com.galleryapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import org.hibernate.LazyInitializationException;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,10 +15,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PageView {
 
     @Id
@@ -22,10 +29,12 @@ public class PageView {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="viewer_id", nullable=false)
     private Viewer viewer;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="page_id", nullable=false)
     private Page page;
@@ -43,13 +52,20 @@ public class PageView {
     /**
      * list of comments
      */
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="pageView", cascade = {CascadeType.ALL})
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="pageView", cascade = {CascadeType.ALL})
     private List<Comment> comments;
 
     /**
      * num of views (all pages)
      */
     private Long numViews;
+
+    @Transient
+    private Long totalLikes;
+
+    @Transient
+    private Long totalUnlikes;
+
 
     public PageView() {
         isLike = false;
@@ -98,7 +114,11 @@ public class PageView {
     }
 
     public List<Comment> getComments() {
-        return comments;
+        try {
+            return comments;
+        } catch (LazyInitializationException e) {
+            return new ArrayList<>();
+        }
     }
 
     public void setComments(List<Comment> comments) {
@@ -111,5 +131,21 @@ public class PageView {
 
     public void setNumViews(Long numViews) {
         this.numViews = numViews;
+    }
+
+    public Long getTotalLikes() {
+        return totalLikes;
+    }
+
+    public void setTotalLikes(Long totalLikes) {
+        this.totalLikes = totalLikes;
+    }
+
+    public Long getTotalUnlikes() {
+        return totalUnlikes;
+    }
+
+    public void setTotalUnlikes(Long totalUnlikes) {
+        this.totalUnlikes = totalUnlikes;
     }
 }
