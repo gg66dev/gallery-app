@@ -75,20 +75,24 @@ public class PageViewService {
         Viewer viewer = viewerDAO.findByIp(ip);
         if (viewer == null) {
             viewer = new Viewer();
+            viewer.setIp(ip);
             viewer.setCreatedDate(new Date());
             viewer.setLastVisitDate(new Date());
-            PageView pageView = new PageView();
+            viewerDAO.save(viewer);
+        }
+        PageView pageView = pageViewDAO.findByViewerAndPage(viewer, page);
+        if (pageView == null) {
+            pageView = new PageView();
             pageView.setViewer(viewer);
             pageView.setPage(page);
             pageView.setComments(new ArrayList<>());
             pageView.setNumViews(0L);
             pageViewDAO.save(pageView);
-        } else {
-            viewer.setLastVisitDate(new Date());
-            PageView pageView = pageViewDAO.findByViewerAndPage(viewer, page);
-            pageView.setNumViews(pageView.getNumViews() + 1);
-            viewerDAO.save(viewer);
         }
+        viewer.setLastVisitDate(new Date());
+        viewerDAO.save(viewer);
+        pageView.setNumViews(pageView.getNumViews() + 1);
+        pageViewDAO.save(pageView);
     }
 
     /**

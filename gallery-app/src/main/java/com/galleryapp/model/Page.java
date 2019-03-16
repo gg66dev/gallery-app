@@ -27,12 +27,12 @@ public class Page {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     /**
      * image realted to page (for home this attribute is null)
      */
-    @OneToOne(cascade = {CascadeType.ALL})
+    @OneToOne
     @JoinColumn(name = "image_id")
     private Image image;
 
@@ -42,11 +42,11 @@ public class Page {
     @NotNull
     private String url;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
