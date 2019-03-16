@@ -38,7 +38,7 @@
     <bean id="dataSourceGlobal" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">
         <property name="driverClass" value="org.postgresql.Driver" />
-        <property name="jdbcUrl" value="jdbc:postgresql://192.168.99.100:5432/postgres_test?charSet=UTF-8" />
+        <property name="jdbcUrl" value="jdbc:postgresql://192.168.99.101:5432/postgres_test?charSet=UTF-8" />
         <property name="user" value="postgres_test" />
         <property name="password" value="postgres_test" />
         <!-- these are C3P0 properties -->

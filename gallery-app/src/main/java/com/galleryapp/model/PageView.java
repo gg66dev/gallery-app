@@ -22,11 +22,11 @@ public class PageView {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
     @JoinColumn(name="viewer_id", nullable=false)
     private Viewer viewer;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne
     @JoinColumn(name="page_id", nullable=false)
     private Page page;
 

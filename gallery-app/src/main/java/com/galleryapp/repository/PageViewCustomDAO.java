@@ -8,7 +8,7 @@ public interface PageViewCustomDAO {
      * @param url page url
      * @return  total of likes
      */
-    Integer getTotalLikes(String url);
+     Long getTotalLikes(String url);
 
     /**
      * get total of unlikes of the url
@@ -16,5 +16,5 @@ public interface PageViewCustomDAO {
      * @param url page url
      * @return total of unlikes
      */
-    Integer getTotalUnlikes(String url);
+    Long getTotalUnlikes(String url);
 }
