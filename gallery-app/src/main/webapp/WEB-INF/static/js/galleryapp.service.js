@@ -50,8 +50,17 @@ app.service('imageService', function($http) {
          return $http.post('/api/comment', comment)
              .then(function (result) {
                  return result.data;
-             })
-     }
+             });
+     },
+     /**
+      * get site data
+      */
+     getSiteData: function() {
+         return $http.get('/api/sitedata')
+             .then(function(result) {
+                 return result.data;
+             });
+    }
 
    }
 });

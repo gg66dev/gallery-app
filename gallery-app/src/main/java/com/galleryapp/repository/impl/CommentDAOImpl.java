@@ -15,20 +15,29 @@ public class CommentDAOImpl implements CommentCustomDAO {
     private EntityManager em;
 
     @Override
-    public List<Comment> findAllByPageOrderByCreatedDateDesc(String url) {
+    public List<Comment> findAllByPageOrderByCreatedDateAsc(String url) {
         final JPAQuery<Comment> query = new JPAQuery<>(em);
         final QComment comment = QComment.comment;
         return query.from(comment)
                 .where(comment.pageView.page.url.eq(url))
-                .orderBy(comment.createdDate.desc())
+                .orderBy(comment.createdDate.asc())
                 .fetch();
     }
+
     @Override
     public Long getTotalComments(String url) {
         final JPAQuery<Comment> query = new JPAQuery<>(em);
         final QComment comment = QComment.comment;
         return query.from(comment)
                 .where(comment.pageView.page.url.eq(url))
+                .fetchCount();
+    }
+
+    @Override
+    public Long getTotalComments() {
+        final JPAQuery<Comment> query = new JPAQuery<>(em);
+        final QComment comment = QComment.comment;
+        return query.from(comment)
                 .fetchCount();
     }
 }

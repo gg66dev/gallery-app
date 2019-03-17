@@ -9,6 +9,14 @@ app.controller('homeController', function($scope, imageService) {
      */
     $scope.grid = [];
 
+    $scope.siteData = {
+        totalImages: 0,
+        totalViews: 0,
+        totalComments: 0,
+        totalLikes: 0,
+        totalUnlikes: 0
+    };
+
     $scope.init = function () {
         _refreshImageGrid();
     };
@@ -24,6 +32,9 @@ app.controller('homeController', function($scope, imageService) {
      * refresh the image grid
      */
     var _refreshImageGrid = function () {
+        imageService.getSiteData().then(function (data) {
+            $scope.siteData = data;
+        });
         imageService.getImages().then(function (data) {
             var grid = [], row = [], i;
             for (i = 0; i < data.length; i++) {

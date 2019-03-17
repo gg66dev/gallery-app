@@ -12,11 +12,11 @@
             <!--site main statistic -->
             <div class="py-1 text-center">
                 <p class="lead">
-                    1.000.000 images uploaded.
-                    21.000.000 likes
-                    80.000.000 unlikes
-                    500 comments
-                    1.000.000.000 views.
+                    {{ siteData.totalImages }} images uploaded.
+                    {{ siteData.totalViews }} views.
+                    {{ siteData.totalComments }} comments.
+                    {{ siteData.totalLikes}} likes.
+                    {{ siteData.totalUnlikes }} unlikes.
                 </p>
             </div>
             <div ng-repeat="row in grid">

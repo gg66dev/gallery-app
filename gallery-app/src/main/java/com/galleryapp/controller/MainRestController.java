@@ -14,7 +14,7 @@ import com.galleryapp.exception.NotValidFileException;
 import com.galleryapp.model.Comment;
 import com.galleryapp.model.Image;
 import com.galleryapp.model.PageView;
-import com.galleryapp.repository.CommentCustomDAO;
+import com.galleryapp.model.SiteData;
 import com.galleryapp.repository.CommentDAO;
 import com.galleryapp.repository.ImageDAO;
 import com.galleryapp.repository.PageViewDAO;
@@ -214,7 +214,7 @@ public class MainRestController {
            throw new NotFoundPageException();
         }
         PageView pageView = pageViewService.findPageView(ip, url);
-        pageView.setComments(commentDAO.findAllByPageOrderByCreatedDateDesc(url));
+        pageView.setComments(commentDAO.findAllByPageOrderByCreatedDateAsc(url));
         return new ResponseEntity<>(pageView, HttpStatus.OK);
     };
 
@@ -276,6 +276,19 @@ public class MainRestController {
        pageViewDAO.save(pageView);
        return new ResponseEntity<>(comment, HttpStatus.CREATED);
     }
+
+    @GetMapping(value = "/sitedata")
+    public ResponseEntity<SiteData> getSiteData( ) {
+        SiteData siteData = new SiteData();
+        siteData.setTotalImages(imageDAO.count());
+        siteData.setTotalViews(pageViewDAO.getTotalViews());
+        siteData.setTotalComments(commentDAO.getTotalComments());
+        siteData.setTotalLikes(pageViewDAO.getTotalLikes());
+        siteData.setTotalUnlikes(pageViewDAO.getTotalUnlikes());
+        return new ResponseEntity<>(siteData, HttpStatus.OK);
+    };
+
+
 
 }
 

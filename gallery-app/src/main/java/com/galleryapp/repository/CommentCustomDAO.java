@@ -10,7 +10,7 @@ public interface CommentCustomDAO {
     /**
      * get all comments from a url
      */
-    List<Comment> findAllByPageOrderByCreatedDateDesc(String url);
+    List<Comment> findAllByPageOrderByCreatedDateAsc(String url);
 
     /**
      *  get total of comments of the url
@@ -19,4 +19,12 @@ public interface CommentCustomDAO {
      * @return
      */
     Long getTotalComments(String url);
+
+
+    /**
+     *  get total of comments of site
+     *
+     * @return
+     */
+    Long getTotalComments();
 }

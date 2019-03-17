@@ -8,7 +8,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-public  class PageViewDAOImpl implements PageViewCustomDAO {
+public class PageViewDAOImpl implements PageViewCustomDAO {
 
     @PersistenceContext
     private EntityManager em;
@@ -19,8 +19,8 @@ public  class PageViewDAOImpl implements PageViewCustomDAO {
         final QPageView pageView = QPageView.pageView;
         return query.from(pageView).where(
                 pageView.page.url.eq(url),
-                pageView.isLike.eq(true)
-                        ).fetchCount();
+                pageView.isLike.eq(true))
+                .fetchCount();
     }
 
     @Override
@@ -28,8 +28,9 @@ public  class PageViewDAOImpl implements PageViewCustomDAO {
         final JPAQuery<PageView> query = new JPAQuery<>(em);
         final QPageView pageView = QPageView.pageView;
         return query.from(pageView).where(
-                pageView.page.url.eq(url)
-                        .and(pageView.isUnlike.eq(true))).fetchCount();
+                pageView.page.url.eq(url),
+                pageView.isUnlike.eq(true))
+                .fetchCount();
     }
 
     @Override
@@ -38,6 +39,34 @@ public  class PageViewDAOImpl implements PageViewCustomDAO {
         final QPageView pageView = QPageView.pageView;
         Long result = query.from(pageView)
                 .where(pageView.page.url.eq(url))
+                .select(pageView.numViews.sum())
+                .fetchOne();
+        return result != null ? result : 0L;
+    }
+
+    @Override
+    public Long getTotalLikes() {
+        final JPAQuery<PageView> query = new JPAQuery<>(em);
+        final QPageView pageView = QPageView.pageView;
+        return query.from(pageView).where(
+                pageView.isLike.eq(true)
+                        ).fetchCount();
+    }
+
+    @Override
+    public Long getTotalUnlikes() {
+        final JPAQuery<PageView> query = new JPAQuery<>(em);
+        final QPageView pageView = QPageView.pageView;
+        return query.from(pageView).where(
+                        pageView.isUnlike.eq(true))
+                .fetchCount();
+    }
+
+    @Override
+    public Long getTotalViews() {
+        final JPAQuery<PageView> query = new JPAQuery<>(em);
+        final QPageView pageView = QPageView.pageView;
+        Long result = query.from(pageView)
                 .select(pageView.numViews.sum())
                 .fetchOne();
         return result != null ? result : 0L;
