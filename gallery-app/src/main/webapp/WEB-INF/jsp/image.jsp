@@ -23,10 +23,10 @@
                         <li ng-repeat="comment in page.comments track by $index" >
                             <div class="comment-box">
                                 <div class="comment-head">
-                                    <span>{{ comment.date }}</span>
+                                    <span>{{ comment.createdDate }}</span>
                                 </div>
                                 <div class="comment-content">
-                                    {{ comment.text }}
+                                    {{ comment.message }}
                                 </div>
 
                             </div>

@@ -225,22 +225,29 @@ public class MainRestController {
 
     /**
      * add a comment
-     * @param url url of image
-     * @param messageComment the comment message
+     * @param comment the comment will be saved
      * @param request servlet request
      * @return the created comment
+     * @throws NotFoundPageException if page is not found
+     * @throws NotFoundViewerException if viewer is not found
      */
-    @PostMapping(value = "/{url}/comment")
-    public ResponseEntity<Comment> addComment (@PathVariable  String url,
-                                               @RequestBody String messageComment,
+    @PostMapping(value = "/comment")
+    public ResponseEntity<Comment> addComment (@RequestBody Comment comment,
                                                HttpServletRequest request)
             throws NotFoundPageException, NotFoundViewerException {
        String ip = request.getRemoteAddr();
-       PageView pageView = pageViewService.findPageView(ip, url);
-       Comment comment = new Comment();
-       comment.setMessage(messageComment);
-       comment.setCreatedDate(new Date());
-       pageView.getComments().add(comment);
+       if (ip == null) {
+            throw new NotFoundViewerException();
+       }
+       if (comment == null || comment.getUrl() == null) {
+           throw new NotFoundPageException();
+       }
+       PageView pageView = pageViewService.findPageView(ip,comment.getUrl());
+       Comment newComment = new Comment();
+       newComment.setMessage(comment.getMessage());
+       newComment.setCreatedDate(new Date());
+       newComment.setPageView(pageView);
+       pageView.getComments().add(newComment);
        pageViewDAO.save(pageView);
        return new ResponseEntity<>(comment, HttpStatus.CREATED);
     }

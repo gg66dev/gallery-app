@@ -42,6 +42,16 @@ app.service('imageService', function($http) {
              .then(function (result) {
                 return result.data;
              });
+     },
+     /**
+      * save a comment
+      */
+     saveComment: function(comment) {
+         return $http.post('/api/comment', comment)
+             .then(function (result) {
+                 return result.data;
+             })
      }
+
    }
 });

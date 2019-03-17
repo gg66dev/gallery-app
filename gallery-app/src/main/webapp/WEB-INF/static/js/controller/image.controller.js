@@ -55,6 +55,7 @@ app.controller('imageController', function($scope, imageService) {
                 page.views = data.numViews;
                 page.totalLikes = data.totalLikes;
                 page.totalUnlikes = data.totalUnlikes;
+                page.comments = data.comments;
                 page.loaded = true;
             });
     };
@@ -115,11 +116,15 @@ app.controller('imageController', function($scope, imageService) {
      * add new comment
      */
     $scope.addComent = function ( ) {
-        $scope.page.comments.push({
-            text: $scope.page.targetComment,
-            date: new Date()
-        });
+        var comment =  {
+            message: $scope.page.targetComment,
+            //createdDate: new Date(),
+            url: $scope.page.imageHash
+        };
+        $scope.page.comments.push(comment);
         $scope.page.targetComment = "";
+        //save comment
+        imageService.saveComment(comment)
     }
 
 });
