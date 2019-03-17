@@ -159,7 +159,7 @@ public class MainRestController {
      */
     @GetMapping(value = "/images")
     public ResponseEntity<List<Image>> getImages() {
-        Iterable<Image> it = imageDAO.findAll();
+        Iterable<Image> it = imageDAO.findAllByOrderByUpdatedDateDesc();
         Iterator<Image> iterator = it.iterator();
         List<Image> images = new ArrayList<>();
         while (iterator.hasNext()) {

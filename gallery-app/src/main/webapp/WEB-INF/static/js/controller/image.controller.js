@@ -1,7 +1,7 @@
 /***
  * controller from image detail view
  */
-app.controller('imageController', function($scope, imageService) {
+app.controller('imageController', function($scope, $window, imageService) {
 
     /**
      * object with functional elements of the page
@@ -58,6 +58,13 @@ app.controller('imageController', function($scope, imageService) {
                 page.comments = data.comments;
                 page.loaded = true;
             });
+    };
+
+    /**
+     * load event after a image is loaded (redirect to home)
+     */
+    $scope.load = function () {
+       $window.location.href = '/';
     };
 
     /***
