@@ -41,6 +41,10 @@
                             {{ page.views }}
                            <i class="far fa-2x fa-eye"></i>
                         </span>
+                        <span>
+                            {{ page.comments.length }}
+                           <i class="far fa-2x fa-comment"></i>
+                        </span>
                         <a ng-click="likePage()">
                             {{ page.totalLikes }}
                             <i ng-if="!page.isLike" class="far fa-2x fa-thumbs-up"></i>
