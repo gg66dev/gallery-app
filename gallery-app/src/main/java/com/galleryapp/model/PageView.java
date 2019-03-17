@@ -55,7 +55,7 @@ public class PageView {
     private List<Comment> comments;
 
     /**
-     * num of views (all pages)
+     * num of views (the viewer has seen the page)
      */
     private Long numViews;
 

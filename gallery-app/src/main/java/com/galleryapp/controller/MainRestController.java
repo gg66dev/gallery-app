@@ -8,13 +8,14 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import com.galleryapp.exception.NotFoundPageException;
 import com.galleryapp.exception.NotFoundViewerException;
 import com.galleryapp.exception.NotValidFileException;
 import com.galleryapp.model.Comment;
 import com.galleryapp.model.Image;
 import com.galleryapp.model.PageView;
+import com.galleryapp.repository.CommentCustomDAO;
+import com.galleryapp.repository.CommentDAO;
 import com.galleryapp.repository.ImageDAO;
 import com.galleryapp.repository.PageViewDAO;
 import com.galleryapp.service.PageViewService;
@@ -24,7 +25,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,13 +46,18 @@ public class MainRestController {
 
     /**
      * image repository
-     * */
+     */
     private ImageDAO imageDAO;
 
     /**
      * pageView repository
      */
     private PageViewDAO pageViewDAO;
+
+    /**
+     * comment repository
+     */
+    private CommentDAO commentDAO;
 
     /**
      * service of pageviews
@@ -72,6 +77,11 @@ public class MainRestController {
     @Autowired
     public void setPageViewService(PageViewService pageViewService) {
         this.pageViewService = pageViewService;
+    }
+
+    @Autowired
+    public void setCommentDAO(CommentDAO commentDAO) {
+        this.commentDAO = commentDAO;
     }
 
     /**
@@ -164,9 +174,23 @@ public class MainRestController {
         List<Image> images = new ArrayList<>();
         while (iterator.hasNext()) {
             Image image = iterator.next();
+            setPreviewData(image);
             images.add(image);
         }
         return new ResponseEntity<>(images , HttpStatus.OK);
+    }
+
+    /**
+     * set preview data
+     *
+     * @param image image related to page of the preview data
+     */
+    private void setPreviewData(Image image) {
+        String url = image.getName();
+        image.setTotalLikes(pageViewDAO.getTotalLikes(url));
+        image.setTotalUnlikes(pageViewDAO.getTotalUnlikes(url));
+        image.setTotalViews(pageViewDAO.getTotalViews(url));
+        image.setTotalComments(commentDAO.getTotalComments(url));
     }
 
     /**
@@ -190,6 +214,7 @@ public class MainRestController {
            throw new NotFoundPageException();
         }
         PageView pageView = pageViewService.findPageView(ip, url);
+        pageView.setComments(commentDAO.findAllByPageOrderByCreatedDateDesc(url));
         return new ResponseEntity<>(pageView, HttpStatus.OK);
     };
 

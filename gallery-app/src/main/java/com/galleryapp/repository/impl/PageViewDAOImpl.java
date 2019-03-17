@@ -31,4 +31,16 @@ public  class PageViewDAOImpl implements PageViewCustomDAO {
                 pageView.page.url.eq(url)
                         .and(pageView.isUnlike.eq(true))).fetchCount();
     }
+
+    @Override
+    public Long getTotalViews(String url) {
+        final JPAQuery<PageView> query = new JPAQuery<>(em);
+        final QPageView pageView = QPageView.pageView;
+        Long result = query.from(pageView)
+                .where(pageView.page.url.eq(url))
+                .select(pageView.numViews.sum())
+                .fetchOne();
+        return result != null ? result : 0L;
+    }
+
 }

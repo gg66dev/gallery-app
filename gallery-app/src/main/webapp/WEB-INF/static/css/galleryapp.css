@@ -188,3 +188,46 @@ Comment button
 a:hover {
  cursor:pointer;
 }
+
+/**
+* text over image preview
+*/
+.preview-container {
+  position: relative;
+  width: 50%;
+}
+
+.preview-image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.preview-container:hover .preview-image {
+    -webkit-filter: blur(5px); /* safari 6.0 - 9.0 */
+  filter: blur(5px);
+}
+
+.preview-container:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}

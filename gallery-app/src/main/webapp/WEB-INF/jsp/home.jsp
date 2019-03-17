@@ -21,9 +21,29 @@
             </div>
             <div ng-repeat="row in grid">
                <div class="row">
-                  <div class="col-sm" ng-repeat="image in row">
+                  <div class="preview-container  col-sm" ng-repeat="image in row">
                       <a href="/{{image.name}}" >
-                        <img class="cell-image" ng-src="images/{{image.name}}">
+                        <img class="cell-image preview-image" ng-src="images/{{image.name}}">
+                         <div class="middle">
+                            <div class="text">
+                                <span>
+                                    <i class="far fa-eye"></i>
+                                    {{ image.totalViews  }}
+                                </span>
+                                <span>
+                                    <i class="far fa-comment"></i>
+                                    {{ image.totalComments }}
+                                </span>
+                                <span>
+                                    <i class="far fa-thumbs-up"></i>
+                                    {{ image.totalLikes }}
+                                </span>
+                                <span>
+                                    <i class="far fa-thumbs-down"></i>
+                                    {{ image.totalUnlikes }}
+                                </span>
+                            </div>
+                         </div>
                       </a>
                   </div>
                 </div>

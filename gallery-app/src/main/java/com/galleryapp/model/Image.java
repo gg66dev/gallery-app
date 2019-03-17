@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -32,6 +33,19 @@ public class Image {
      */
     @NotNull
     private String name;
+
+
+    @Transient
+    private Long totalLikes;
+
+    @Transient
+    private Long totalUnlikes;
+
+    @Transient
+    private Long totalViews;
+
+    @Transient
+    private Long totalComments;
 
     /**
      * updated date
@@ -62,4 +76,35 @@ public class Image {
         this.updatedDate = updatedDate;
     }
 
+    public Long getTotalLikes() {
+        return totalLikes;
+    }
+
+    public void setTotalLikes(Long totalLikes) {
+        this.totalLikes = totalLikes;
+    }
+
+    public Long getTotalUnlikes() {
+        return totalUnlikes;
+    }
+
+    public void setTotalUnlikes(Long totalUnlikes) {
+        this.totalUnlikes = totalUnlikes;
+    }
+
+    public Long getTotalViews() {
+        return totalViews;
+    }
+
+    public void setTotalViews(Long totalViews) {
+        this.totalViews = totalViews;
+    }
+
+    public Long getTotalComments() {
+        return totalComments;
+    }
+
+    public void setTotalComments(Long totalComments) {
+        this.totalComments = totalComments;
+    }
 }

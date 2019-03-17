@@ -17,4 +17,13 @@ public interface PageViewCustomDAO {
      * @return total of unlikes
      */
     Long getTotalUnlikes(String url);
+
+    /***
+     * get total of views of the url
+     *
+     * @param url
+     * @return
+     */
+    Long getTotalViews(String url);
+
 }
