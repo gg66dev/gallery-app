@@ -20,7 +20,7 @@
             base-package="com.galleryapp.controller,com.galleryapp.service" />
     <mvc:default-servlet-handler />
 
-    <mvc:resources mapping="/images/**" location="file:/#{systemProperties['catalina.home']}/tmpFiles/" />
+    <mvc:resources mapping="/images/**" location="file://#{systemProperties['catalina.home']}/tmpFiles/" />
     <mvc:resources mapping="/static/**" location="/WEB-INF/static/" />
 
    <!-- SPRING - JPA -->

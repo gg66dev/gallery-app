@@ -2,23 +2,20 @@
 Description
 ================
 
-* simple example project:  user can upload image and write comments.
-* NOT COMPLETE
+* simple example project: the user can upload images and write comments.
 
 
 Stack
 ==========
 
-* Spring-mvc 5 (Java 11) / tomcat 9
+* Spring-mvc 5 (Java 11) / tomcat 9 
+    * JPA - Hibernate - Spring Data - QueryDSL
 * AngularJS 1.7
 * PostgreSQL 10
 
-
-Observation
-===================
-
-* to create volumen for postgres
+Star application
+=================
 
 ```
-docker volume create postgres_database
+docker-compose up -d
 ```

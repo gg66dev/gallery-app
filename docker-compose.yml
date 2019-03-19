@@ -1,17 +1,13 @@
 version: '3'
       
 services:
-  nginx-images:
-    image: nginx:latest
-    volumes:
-      - ./nginx-images/conf.d:/etc/nginx/conf.d
-      - ./nginx-images/images:/images
-    ports:
-      - "80:80"
   gallery-app:
     build: ./gallery-app
+    depends_on:
+      - db
     ports:
-      - "8080:8080"
+      - "80:8080"
+    dns: 8.8.8.8  
   db:
     image: postgres:11.2-alpine
     ports:
@@ -21,7 +17,4 @@ services:
       POSTGRES_PASSWORD: 'gallery-app'
       POSTGRES_DB: 'gallery-app'
     volumes:
-      - postgres_database:/var/lib/postgresql/data 
-volumes:
-    postgres_database:
-        external: true
+      - ./gallery-app/src/main/resources/sql:/docker-entrypoint-initdb.d/

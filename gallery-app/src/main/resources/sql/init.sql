@@ -31,15 +31,16 @@ CREATE TABLE pageview(
   id SERIAL PRIMARY KEY,
   viewer_id BIGINT,
   page_id BIGINT,
-  "like" BOOLEAN,
-  unlike BOOLEAN,
+  islike BOOLEAN,
+  isunlike BOOLEAN,
+  numviews BIGINT,
   FOREIGN KEY (viewer_id) REFERENCES viewer (id),
   FOREIGN KEY (page_id) REFERENCES page (id)
 );
 
 CREATE TABLE comment(
   id SERIAL PRIMARY KEY,
-  createddate TIMESTAMP WITH TIME ZONE NOT NULL ,
+  createddate TIMESTAMP WITH TIME ZONE NOT NULL,
   message VARCHAR(255) NOT NULL,
   pageview_id BIGINT,
   FOREIGN KEY (pageview_id) REFERENCES pageview (id)

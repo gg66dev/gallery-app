@@ -34,6 +34,10 @@ public class Image {
     @NotNull
     private String name;
 
+    /**
+     * updated date
+     */
+    private Date updatedDate;
 
     @Transient
     private Long totalLikes;
@@ -46,11 +50,6 @@ public class Image {
 
     @Transient
     private Long totalComments;
-
-    /**
-     * updated date
-     */
-    private Date updatedDate;
 
     public Long getId() {
         return id;

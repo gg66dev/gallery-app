@@ -1,3 +1,11 @@
+## development database
+
+* to create volumen for development database
+
+```
+docker volume create postgres_database
+```
+
 
 ## Unit testing - Repositories
 
