@@ -28,22 +28,35 @@ public class PageDAOTest {
 
     private PageDAO pageDAO;
 
+    private ImageDAO imageDAO;
+
     private List<Page> pages;
+
+    private List<Image> images;
 
     @Autowired
     public void setPageDAO(PageDAO pageDAO) {
         this.pageDAO = pageDAO;
     }
 
+    @Autowired
+    public void setImageDAO(ImageDAO imageDAO) {
+        this.imageDAO = imageDAO;
+    }
+
     @Before
     public void init() {
         pages = new ArrayList<>();
+        images = new ArrayList<>();
     }
 
     @After
     public void deletAllPage() {
         for (Page page : pages) {
             pageDAO.delete(page);
+        }
+        for (Image image : images) {
+            imageDAO.delete(image);
         }
     }
 
@@ -58,6 +71,8 @@ public class PageDAOTest {
         Page page = new Page();
         Image image = new Image();
         image.setName("test image");
+        imageDAO.save(image);
+        images.add(image);
         page.setImage(image);
         page.setUrl("/home");
         pageDAO.save(page);
@@ -75,6 +90,8 @@ public class PageDAOTest {
         Image image = new Image();
         image.setName("test image");
         page.setImage(image);
+        imageDAO.save(image);
+        images.add(image);
         page.setUrl("/home");
         pageDAO.save(page);
 

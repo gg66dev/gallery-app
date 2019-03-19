@@ -15,12 +15,13 @@
             http://www.springframework.org/schema/data/jpa
             http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
+   <context:property-placeholder location="classpath:application.properties" />
     <mvc:annotation-driven />
     <context:component-scan
             base-package="com.galleryapp.controller,com.galleryapp.service" />
     <mvc:default-servlet-handler />
 
-    <mvc:resources mapping="/images/**" location="file://#{systemProperties['catalina.home']}/tmpFiles/" />
+    <mvc:resources mapping="/images/**" location="${location.images}" />
     <mvc:resources mapping="/static/**" location="/WEB-INF/static/" />
 
    <!-- SPRING - JPA -->
@@ -38,9 +39,9 @@
     <bean id="dataSourceGlobal" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">
         <property name="driverClass" value="org.postgresql.Driver" />
-        <property name="jdbcUrl" value="jdbc:postgresql://192.168.99.100:5432/gallery-app?charSet=UTF-8" />
-        <property name="user" value="gallery-app" />
-        <property name="password" value="gallery-app" />
+        <property name="jdbcUrl" value="jdbc:postgresql://${db.host}:${db.port}/${db.database}?charSet=UTF-8" />
+        <property name="user" value="${db.user}" />
+        <property name="password" value="${db.password}" />
         <!-- these are C3P0 properties -->
         <property name="acquireIncrement" value="1" />
         <property name="minPoolSize" value="5" />

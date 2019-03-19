@@ -1,6 +1,9 @@
 #build stage
 FROM maven:3.6.0-jdk-11 AS build
-COPY src /usr/src/app/src  
+COPY src /usr/src/app/src 
+RUN rm  /usr/src/app/src/main/resources/application.properties && \
+    mv  /usr/src/app/src/main/resources/application-docker.properties \
+        /usr/src/app/src/main/resources/application.properties 
 COPY pom.xml /usr/src/app  
 RUN mvn -f /usr/src/app/pom.xml clean package -DskipTests
 

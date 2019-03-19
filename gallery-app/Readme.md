@@ -6,13 +6,29 @@
 docker volume create postgres_database
 ```
 
+* build docker of devel database
+
+```
+docker build -f Dockerfile.db -t db_devel .
+```
+
+* run container
+
+```
+docker run -d -t -i -e POSTGRES_PASSWORD='gallery-app' \
+-e POSTGRES_USER='gallery-app' \
+-e POSTGRES_DB='gallery-app' \
+-p 5432:5432 \
+--volume source=postgres_database,destination=/var/lib/postgresql/data \
+--name db_devel db_devel 
+```
 
 ## Unit testing - Repositories
 
 * build docker of testing database
 
 ```
-docker build -f Dockerfile.db_test -t postgres_test .
+docker build -f Dockerfile.db -t postgres_test .
 ```
 
 * run container
